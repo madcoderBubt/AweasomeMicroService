@@ -7,7 +7,7 @@ namespace UserServices.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-[Authorize(Roles = "WaitingConfirmation")]
+[Authorize(Roles = "AdminUser")]
 public class UserController : ControllerBase
 {
     UserDbContext dbContext = null;
@@ -53,7 +53,8 @@ public class UserController : ControllerBase
 
         if (user.UserId > 0)
         {
-            
+            dbContext.Entry<UserModel>(user).State = EntityState.Modified;
+            dbContext.SaveChanges();
         }
 
         return Ok(user);
@@ -61,10 +62,11 @@ public class UserController : ControllerBase
     [HttpDelete("{id}")]
     public ActionResult DelUser(int id)
     {
-        if (!ModelState.IsValid)
-            return StatusCode(StatusCodes.Status400BadRequest, new { msg = "Invalid Model data" });
+        UserModel? returnValue = dbContext.Users.Where(f => f.UserId == id).FirstOrDefault();
+        if (returnValue == null) return StatusCode(StatusCodes.Status204NoContent, new { msg = "Data Not Found." });
 
-        
+        dbContext.Users.Remove(returnValue);
+        dbContext.SaveChanges();
 
         return Ok();
     }
