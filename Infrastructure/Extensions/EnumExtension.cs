@@ -2,7 +2,8 @@ using System;
 using System.ComponentModel;
 using System.Reflection;
 
-namespace UserServices.Extensions;
+namespace Infrastructure.Extensions;
+
 public static class EnumExtensions
 {
     public static string GetDescription<T>(this T enumerationValue)

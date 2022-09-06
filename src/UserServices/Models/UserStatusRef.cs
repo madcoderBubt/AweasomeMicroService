@@ -1,5 +1,6 @@
 using System.ComponentModel;
-using UserServices.Extensions;
+using Infrastructure.Extensions;
+
 namespace UserServices.Models;
 
 public class UserStatusRef

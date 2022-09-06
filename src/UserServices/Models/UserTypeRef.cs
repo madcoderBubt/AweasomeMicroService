@@ -1,5 +1,5 @@
 using System.ComponentModel;
-using UserServices.Extensions;
+using Infrastructure.Extensions;
 namespace UserServices.Models;
 
 public class UserTypeRef
@@ -22,5 +22,8 @@ public enum UserTypeEnum
     FacultyUser = 1,
 
     [Description("Student")]
-    StudentUser = 2
+    StudentUser = 2,
+
+    [Description("Librarian")]
+    Librarian = 3
 }

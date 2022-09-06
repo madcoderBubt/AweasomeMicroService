@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -57,6 +58,7 @@ public class UserAuthController : ControllerBase
             {
                 status = "Success",
                 user = user.UserName,
+                userId = user.UserId,
                 roles = roles,
                 token = new JwtSecurityTokenHandler().WriteToken(token),
                 expiration = token.ValidTo
@@ -67,9 +69,23 @@ public class UserAuthController : ControllerBase
     }
 
     // PUT api/<UserAuthController>/5
-    [HttpPost]
-    public void Put(int id, [FromBody] string value)
+    [Authorize(Roles = "AdminUser")]
+    [HttpGet]
+    [Route("{id}/status/{status}")]
+    public bool ChangeUserStatus(int id, UserStatusEnum status)
     {
+        if (id <= 0) return false;
 
+        var user = dbContext.Users.Find(id);
+        if(user != null)
+        {
+            user.UserStatus = status;
+            dbContext.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            dbContext.SaveChanges();
+
+            return true;
+        }
+
+        return false;
     }
 }
