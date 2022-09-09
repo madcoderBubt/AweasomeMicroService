@@ -7,7 +7,7 @@ namespace LibraryService.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    [Authorize("Librarian,AdminUser")]
+    [Authorize(Roles = "Librarian,AdminUser")]
     public class LibraryController : ControllerBase
     {
         LibraryDbContext dbContext = null;

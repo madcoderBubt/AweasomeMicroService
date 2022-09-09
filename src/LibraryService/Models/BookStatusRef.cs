@@ -17,8 +17,8 @@ namespace LibraryService.Models
     public enum BookStatusEnum
     {
         [Description("Available")]
-        Available,
+        Available = 1,
         [Description("Not Available")]
-        NotAvailable
+        NotAvailable = 0
     }
 }

@@ -2,12 +2,13 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace LibraryService.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    [Authorize("Librarian,AdminUser")]
+    [Authorize(Roles = "AdminUser,Librarian")]
     public class BookController : ControllerBase
     {
         LibraryDbContext dbContext = null;
@@ -33,21 +34,55 @@ namespace LibraryService.Controllers
         }
 
         [HttpPost]
-        public BookModel? Set(BookModel book)
+        public IActionResult Set(BookModel book)
         {
-            throw new NotImplementedException();
+            if(!ModelState.IsValid) return StatusCode(StatusCodes.Status400BadRequest, new { msg = "Invalid Model data" });
+
+            if (book.BookId <= 0)
+            {
+                var userClaim = User.HasClaim(claim => claim.Type == "UserId");
+                if (userClaim) book.AddedBy = Convert.ToInt32(User.FindFirst("UserId")?.Value);
+                book.CreatedDate = DateTime.UtcNow;
+
+                dbContext.Books.Add(book);
+                dbContext.SaveChanges();
+
+                return Ok(book);
+            }
+            else return StatusCode(StatusCodes.Status304NotModified, new {msg = "Invalid Data Model."});
         }
 
         [HttpPut("{id}")]
-        public BookModel? Set(BookModel book, int id)
+        public IActionResult Set(BookModel book, int id)
         {
-            throw new NotImplementedException();
+            if (!ModelState.IsValid) return StatusCode(StatusCodes.Status400BadRequest, new { msg = "Invalid Model data" });
+
+            var bookData = dbContext.Books.Find(id);
+            if(bookData == null) return StatusCode(StatusCodes.Status404NotFound, new { msg = "book details not found" });
+
+            if (book.BookId > 0)
+            {
+                var userClaim = User.HasClaim(claim => claim.Type == "UserId");
+                if (userClaim) book.AddedBy = Convert.ToInt32(User.FindFirst("UserId")?.Value);
+
+                dbContext.Entry<BookModel>(book).State = EntityState.Modified;
+                dbContext.SaveChanges();
+
+                return Ok(book);
+            }
+            else return StatusCode(StatusCodes.Status304NotModified, new { msg = "Invalid Data Model." });
         }
 
         [HttpDelete("{id}")]
-        public bool GetUsers(int id)
+        public IActionResult Delete(int id)
         {
-            throw new NotImplementedException();
+            BookModel? returnValue = dbContext.Books.Where(f => f.BookId == id).FirstOrDefault();
+            if (returnValue == null) return StatusCode(StatusCodes.Status204NoContent, new { status=false, msg = "Data Not Found." });
+
+            dbContext.Books.Remove(returnValue);
+            dbContext.SaveChanges();
+
+            return Ok(new { status = true, msg = "Deleted Successful."});
         }
     }
 }
