@@ -42,7 +42,7 @@ public class UserAuthController : ControllerBase
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
-            //authClaims.Add(new Claim(ClaimTypes.Role, user.UserStatus.ToString()));
+            authClaims.Add(new Claim("UserId", user.UserId.ToString()));
             authClaims.Add(new Claim(ClaimTypes.Role, user.UserType.ToString()));
 
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]));

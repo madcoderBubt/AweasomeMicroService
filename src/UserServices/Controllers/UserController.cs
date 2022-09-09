@@ -63,7 +63,7 @@ public class UserController : ControllerBase
             return StatusCode(StatusCodes.Status400BadRequest, new { msg = "Invalid Model data" });
 
         UserModel? returnValue = dbContext.Users.Where(f => f.UserId == id).FirstOrDefault();
-        if (returnValue == null) StatusCode(StatusCodes.Status404NotFound, new { msg = "user info not found" });
+        if (returnValue == null) return StatusCode(StatusCodes.Status404NotFound, new { msg = "user info not found" });
 
         if (User.IsInRole("AdminUser") || User.Identity.Name == returnValue.UserName)
         {
