@@ -8,10 +8,10 @@ ENV ASPNETCORE_URLS=http://+:80
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["UserServices.csproj", "."]
-RUN dotnet restore "./UserServices.csproj"
+COPY ["src/UserServices/UserServices.csproj", "src/UserServices/"]
+RUN dotnet restore "src/UserServices/UserServices.csproj"
 COPY . .
-WORKDIR "/src/."
+WORKDIR "/src/src/UserServices"
 RUN dotnet build "UserServices.csproj" -c Release -o /app/build
 
 FROM build AS publish
