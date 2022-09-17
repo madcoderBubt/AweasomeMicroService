@@ -1,0 +1,56 @@
+{
+  "Routes": [
+    {
+      "UpstreamPathTemplate": "/User",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "userservices",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/User",
+      "SwaggerKey": "users"
+    },
+    {
+      "UpstreamPathTemplate": "/User/{id}",
+      "UpstreamHttpMethod": [ "Get", "Put", "Delete" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "userservices",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/User/{id}",
+      "SwaggerKey": "users"
+    },
+    {
+      "UpstreamPathTemplate": "/UserAuth/log",
+      "UpstreamHttpMethod": [ "Post" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "userservices",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/UserAuth/log",
+      "SwaggerKey": "users"
+    },
+    {
+      "UpstreamPathTemplate": "/UserAuth/{id}/status/{status}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "userservices",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/UserAuth/{id}/status/{status}",
+      "SwaggerKey": "users"
+    }
+  ]
+}

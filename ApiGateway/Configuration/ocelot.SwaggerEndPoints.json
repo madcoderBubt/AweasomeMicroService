@@ -1,0 +1,18 @@
+{
+  "SwaggerEndPoints": [
+    {
+      "Key": "users",
+      "Config": [
+        {
+          "Name": "Users API",
+          "Version": "v1",
+          "Url": "http://userservices-api/swagger/v1/swagger.json"
+          //"Service": {
+          //  "Name": "users",
+          //  "Path": "/swagger/v1/swagger.json"
+          //}
+        }
+      ]
+    }
+  ]
+}

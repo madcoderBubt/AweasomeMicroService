@@ -1,12 +1,3 @@
-version: '3.8'
-
-networks:
-  backend:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 172.28.2.0/24
 
 services:
   userservices:
@@ -18,8 +9,12 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     networks:
-        - backend 
- 
+        - network-microservice 
+    links:
+      - consul
+    depends_on:
+      - consul
+    
   libraryservices:
     container_name: libraryservices-api
     image: libraryservice_img
@@ -29,7 +24,11 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     networks:
-        - backend
+        - network-microservice
+    links:
+      - consul
+    depends_on:
+      - consul
 
   studentservices:
     container_name: studentservices-api
@@ -40,17 +39,27 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     networks:
-        - backend
+        - network-microservice
+    links:
+      - consul
+    depends_on:
+      - consul
 
   apigateway:
     image: ${DOCKER_REGISTRY-}apigateway
-    container_name: apigateway
+    container_name: annex_apigateway
     build:
       context: ../
       dockerfile: ApiGateway/Dockerfile
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
     ports:
       - "5000:80"
     networks:
-      - backend
+      - network-gateway
+      - network-microservice
+    links:
+      - consul
+      - studentservices
+      - libraryservices
+      - userservices
+    depends_on:
+      - consul

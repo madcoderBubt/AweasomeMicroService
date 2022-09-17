@@ -9,6 +9,7 @@ ENV ASPNETCORE_URLS=http://+:80
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["src/UserServices/UserServices.csproj", "src/UserServices/"]
+COPY ["Infrastructure/Infrastructure.csproj", "Infrastructure/"]
 RUN dotnet restore "src/UserServices/UserServices.csproj"
 COPY . .
 WORKDIR "/src/src/UserServices"

@@ -14,7 +14,17 @@
 
   <ItemGroup>
     <Folder Include="Core\" />
-    <Folder Include="Logging\" />
+    <Folder Include="Swagger\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Consul" Version="1.6.10.4" />
+    <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.OpenApi" Version="1.2.3" />
+    <PackageReference Include="Serilog" Version="2.12.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
 </Project>

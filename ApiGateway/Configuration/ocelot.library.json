@@ -1,0 +1,71 @@
+{
+  "Routes": [
+    //Books in Library
+    {
+      "UpstreamPathTemplate": "/Book",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "libraryservices",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/Book",
+      "SwaggerKey": "library"
+    },
+    {
+      "UpstreamPathTemplate": "/Book/{id}",
+      "UpstreamHttpMethod": [ "Get", "Put", "Delete" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "libraryservices",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/Book/{id}",
+      "SwaggerKey": "library"
+    },
+    //Library Services
+    {
+      "UpstreamPathTemplate": "/Library/{readerId}/books",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "libraryservices",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/Book/{readerId}/books",
+      "SwaggerKey": "library"
+    },
+    {
+      "UpstreamPathTemplate": "/Library/{readerId}/borrow/{bookId}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "libraryservices",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/Book/{readerId}/borrow/{bookId}",
+      "SwaggerKey": "library"
+    },
+    {
+      "UpstreamPathTemplate": "/Library/{readerId}/return/{bookId}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "libraryservices",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/Book/{readerId}/return/{bookId}",
+      "SwaggerKey": "library"
+    }
+  ]
+}

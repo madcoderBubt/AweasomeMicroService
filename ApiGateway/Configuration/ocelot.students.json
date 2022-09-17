@@ -1,0 +1,30 @@
+{
+  "Routes": [
+    {
+      "UpstreamPathTemplate": "/Student",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "studentservices",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/Student",
+      "SwaggerKey": "students"
+    },
+    {
+      "UpstreamPathTemplate": "/Student/{id}",
+      "UpstreamHttpMethod": [ "Get", "Put", "Delete" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "studentservices",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/Student/{id}",
+      "SwaggerKey": "students"
+    }
+  ]
+}
