@@ -15,7 +15,9 @@ git clone "https://github.com/madcoderBubt/AweasomeMicroService.git"
 cd AweasomeMicroService/Docker
 docker-compose up build -d
 ```
-
+> SQL SERVER SETUP
+[Setup SQL Server port to 1433](https://www.mssqltips.com/sqlservertip/2495/identify-sql-server-tcp-ip-port-being-used/)
+[Setup SQL Server Authentication useing UserId & PassCode](https://www.dundas.com/support/learning/documentation/installation/how-to-enable-sql-server-authentication)
 
 > ### Happy Coding
 Copyright@ [Sudhananda Biswas](https://www.linkedin.com/in/madcoderbubt/).
